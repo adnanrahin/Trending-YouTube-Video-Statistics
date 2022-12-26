@@ -47,5 +47,5 @@ textdata/*
 
 
 #data
-data-set/
-transform-data
+trending_youtube_video_statistics_dataset/
+transform-data/
