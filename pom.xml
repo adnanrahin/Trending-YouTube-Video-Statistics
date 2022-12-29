@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>data-processing-engine</module>
+        <module>data-preprocessing-engine</module>
     </modules>
 
 </project>

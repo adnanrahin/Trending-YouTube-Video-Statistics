@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>data-processing-engine</artifactId>
+    <artifactId>data-preprocessing-engine</artifactId>
     <groupId>org.youtube.trending.data.processor</groupId>
 
     <properties>
