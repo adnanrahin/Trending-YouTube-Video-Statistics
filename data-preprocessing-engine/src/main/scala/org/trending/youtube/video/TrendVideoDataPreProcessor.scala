@@ -11,7 +11,7 @@ object TrendVideoDataPreProcessor {
       SparkSession
         .builder()
         .appName("DataFrameApp")
-        .config("spark.master", "local[*]")
+        .master("local[*]")
         .getOrCreate()
 
     val csvFileDF = spark.read.format("csv")
@@ -36,7 +36,7 @@ object TrendVideoDataPreProcessor {
         )
       )
 
-    val country_cate_gory_code =
+    val countryCategoryCode =
       countryCodeDF.withColumn("country_category_code",
         concat(
           col("country_code"),
@@ -45,9 +45,7 @@ object TrendVideoDataPreProcessor {
         )
       )
 
-    println(country_cate_gory_code.count())
-
-    country_cate_gory_code
+    countryCategoryCode
       .write
       .mode(SaveMode.Overwrite)
       .parquet("data-set/trending_youtube_video_statistics_dataset/videos_info_filter")

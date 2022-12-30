@@ -12,7 +12,7 @@ object TrendVideoCategoryPreProcessor {
       SparkSession
         .builder()
         .appName("TrendVideoCategoryPreProcessor")
-        .config("spark.master", "local[*]")
+        .master("local[*]")
         .getOrCreate()
 
     val jsonFileDF = spark.read.option("multiline", "true")
