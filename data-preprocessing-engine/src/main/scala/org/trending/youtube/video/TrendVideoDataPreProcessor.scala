@@ -1,7 +1,8 @@
 package org.trending.youtube.video
 
-import org.apache.spark.sql.{SaveMode, SparkSession}
-import org.apache.spark.sql.functions.{callUDF, col, concat, input_file_name, lit}
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.functions._
+import org.trending.youtube.video.util.DataWriter
 
 object TrendVideoDataPreProcessor {
 
@@ -10,7 +11,7 @@ object TrendVideoDataPreProcessor {
     val spark: SparkSession =
       SparkSession
         .builder()
-        .appName("DataFrameApp")
+        .appName("TrendVideoDataPreProcessor")
         .master("local[*]")
         .getOrCreate()
 
@@ -19,22 +20,9 @@ object TrendVideoDataPreProcessor {
       .option("delimiter", ",")
       .load("data-set/trending_youtube_video_statistics_dataset/videos_info/*.csv")
 
-    spark
-      .udf
-      .register("get_file_name",
-        (path: String) => path.split("/")
-          .last
-          .split("\\.")
-          .head
-          .substring(0, 2))
-
-    println(csvFileDF.count())
-
     val countryCodeDF = csvFileDF
       .withColumn("country_code",
-        callUDF("get_file_name", input_file_name()
-        )
-      )
+        callUDF(GetFileName.getFileName(spark), input_file_name()))
 
     val countryCategoryCode =
       countryCodeDF.withColumn("country_category_code",
@@ -45,10 +33,11 @@ object TrendVideoDataPreProcessor {
         )
       )
 
-    countryCategoryCode
-      .write
-      .mode(SaveMode.Overwrite)
-      .parquet("data-set/trending_youtube_video_statistics_dataset/videos_info_filter")
+    DataWriter
+      .dataWriter(
+        countryCategoryCode,
+        "data-set/trending_youtube_video_statistics_dataset/",
+        "videos_info_filter")
 
   }
 
