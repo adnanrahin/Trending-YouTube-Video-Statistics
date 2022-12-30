@@ -30,7 +30,11 @@ object TrendVideoDataPreProcessor {
 
     println(csvFileDF.count())
 
-    val countryCodeDF = csvFileDF.withColumn("country_code", callUDF("get_file_name", input_file_name()))
+    val countryCodeDF = csvFileDF
+      .withColumn("country_code",
+        callUDF("get_file_name", input_file_name()
+        )
+      )
 
     val country_cate_gory_code =
       countryCodeDF.withColumn("country_category_code",
