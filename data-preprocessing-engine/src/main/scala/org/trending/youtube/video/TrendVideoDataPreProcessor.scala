@@ -2,7 +2,7 @@ package org.trending.youtube.video
 
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
-import org.trending.youtube.video.util.DataWriter
+import org.trending.youtube.video.util.{DataWriter, GetFileName}
 
 object TrendVideoDataPreProcessor {
 

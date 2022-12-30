@@ -1,4 +1,4 @@
-package org.trending.youtube.video
+package org.trending.youtube.video.util
 
 import org.apache.spark.sql.SparkSession
 

@@ -2,7 +2,7 @@ package org.trending.youtube.video
 
 import org.apache.spark.sql.functions.{callUDF, col, input_file_name, lit}
 import org.apache.spark.sql.{SparkSession, functions}
-import org.trending.youtube.video.util.{DataWriter, JsonParser}
+import org.trending.youtube.video.util.{DataWriter, GetFileName, JsonParser}
 
 object TrendVideoCategoryPreProcessor {
 
