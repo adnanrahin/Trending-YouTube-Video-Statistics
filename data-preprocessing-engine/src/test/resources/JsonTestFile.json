@@ -1,0 +1,26 @@
+{
+  "kind": "youtube#videoCategoryListResponse",
+  "etag": "\"ld9biNPKjAjgjV7EZ4EKeEGrhao/1v2mrzYSYG6onNLt2qTj13hkQZk\"",
+  "items": [
+    {
+      "kind": "youtube#videoCategory",
+      "etag": "\"ld9biNPKjAjgjV7EZ4EKeEGrhao/Xy1mB4_yLrHy_BmKmPBggty2mZQ\"",
+      "id": "1",
+      "snippet": {
+        "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+        "title": "Film & Animation",
+        "assignable": true
+      }
+    },
+    {
+      "kind": "youtube#videoCategory",
+      "etag": "\"ld9biNPKjAjgjV7EZ4EKeEGrhao/UZ1oLIIz2dxIhO45ZTFR3a3NyTA\"",
+      "id": "2",
+      "snippet": {
+        "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+        "title": "Autos & Vehicles",
+        "assignable": true
+      }
+    }
+  ]
+}

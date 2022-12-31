@@ -47,7 +47,7 @@ object JsonParser {
                     .replace(".", "_")
                     .replace("$", "_")
                     .replace("__", "_")
-                    .replace(" ", "")
+                    //.replace(" ", "")
                     .replace("-", ""))
                   )
               )
@@ -58,7 +58,7 @@ object JsonParser {
         }
 
         case _ =>
-          
+
       }
     }
     df
