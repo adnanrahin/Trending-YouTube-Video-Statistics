@@ -1,8 +1,8 @@
 package org.trending.youtube.video
 
-import org.apache.spark.sql.functions.{callUDF, col, input_file_name, lit}
-import org.apache.spark.sql.{SparkSession, functions}
-import org.trending.youtube.video.util.{DataWriter, GetFileName, JsonParser}
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.functions.{callUDF, input_file_name}
+import org.trending.youtube.video.util.{DataFrameUtilMethods, DataWriter, JsonParser}
 
 object TrendVideoCategoryPreProcessor {
 
@@ -22,16 +22,17 @@ object TrendVideoCategoryPreProcessor {
 
     val countryCodeDF = categoryIdFlattenDF
       .withColumn("country_code",
-        callUDF(GetFileName.getFileName(spark), input_file_name()))
+        callUDF(DataFrameUtilMethods.getFileName(spark), input_file_name()))
 
     val countryCategoryCode =
-      countryCodeDF.withColumn("country_category_code",
-        functions.concat(
-          col("country_code"),
-          lit("_"),
-          col("items_id")
+      DataFrameUtilMethods
+        .concatDataFrameColumns(
+          "country_category_code",
+          "country_code",
+          "items_id",
+          "_",
+          countryCodeDF
         )
-      )
 
     DataWriter
       .dataWriter(

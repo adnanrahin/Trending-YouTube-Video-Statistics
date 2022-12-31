@@ -2,7 +2,7 @@ package org.trending.youtube.video
 
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
-import org.trending.youtube.video.util.{DataWriter, GetFileName}
+import org.trending.youtube.video.util.{DataWriter, DataFrameUtilMethods}
 
 object TrendVideoDataPreProcessor {
 
@@ -22,17 +22,18 @@ object TrendVideoDataPreProcessor {
 
     val countryCodeDF = csvFileDF
       .withColumn("country_code",
-        callUDF(GetFileName.getFileName(spark), input_file_name()))
+        callUDF(DataFrameUtilMethods.getFileName(spark), input_file_name()))
 
     val countryCategoryCode =
-      countryCodeDF.withColumn("country_category_code",
-        concat(
-          col("country_code"),
-          lit("_"),
-          col("category_id")
+      DataFrameUtilMethods
+        .concatDataFrameColumns(
+          "country_category_code",
+          "country_code",
+          "category_id",
+          "_",
+          countryCodeDF
         )
-      )
-
+    
     DataWriter
       .dataWriter(
         countryCategoryCode,
