@@ -18,7 +18,7 @@ object TrendVideoDataPreProcessor {
     val csvFileDF = spark.read.format("csv")
       .option("header", "true")
       .option("delimiter", ",")
-      .load("data-set/trending_youtube_video_statistics_dataset/videos_info/*.csv")
+      .load("/Users/adnanrahin/source-code/scala/big-data/Trending-YouTube-Video-Statistics/data-set/trending_youtube_video_statistics_dataset/videos_info/*.csv")
 
     val countryCodeDF = csvFileDF
       .withColumn("country_code",
@@ -33,7 +33,7 @@ object TrendVideoDataPreProcessor {
           "_",
           countryCodeDF
         )
-    
+
     DataWriter
       .dataWriter(
         countryCategoryCode,

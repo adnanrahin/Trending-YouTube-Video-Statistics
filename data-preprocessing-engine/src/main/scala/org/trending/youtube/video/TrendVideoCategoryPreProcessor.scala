@@ -16,7 +16,7 @@ object TrendVideoCategoryPreProcessor {
         .getOrCreate()
 
     val jsonFileDF = spark.read.option("multiline", "true")
-      .json("data-set/trending_youtube_video_statistics_dataset/category_ids/*.json")
+      .json("/Users/adnanrahin/source-code/scala/big-data/Trending-YouTube-Video-Statistics/data-set/trending_youtube_video_statistics_dataset/category_ids/*.json")
 
     val categoryIdFlattenDF = JsonParser.flattenDF(jsonFileDF)
 
