@@ -36,6 +36,8 @@ object TrendVideoDataPreProcessor {
           countryCodeDF
         )
 
+    countryCategoryCode.show(20, false)
+
     DataWriter
       .dataWriter(
         countryCategoryCode,

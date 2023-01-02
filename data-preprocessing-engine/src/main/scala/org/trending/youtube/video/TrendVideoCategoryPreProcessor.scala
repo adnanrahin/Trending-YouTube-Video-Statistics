@@ -2,7 +2,7 @@ package org.trending.youtube.video
 
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.{callUDF, input_file_name}
-import org.trending.youtube.video.util.{DataFrameUtilMethods, DataWriter, JsonParser}
+import org.trending.youtube.video.util.{Constant, DataFrameUtilMethods, DataWriter, JsonParser}
 
 object TrendVideoCategoryPreProcessor {
 
@@ -16,7 +16,7 @@ object TrendVideoCategoryPreProcessor {
         .getOrCreate()
 
     val jsonFileDF = spark.read.option("multiline", "true")
-      .json("/Users/adnanrahin/source-code/scala/big-data/Trending-YouTube-Video-Statistics/data-set/trending_youtube_video_statistics_dataset/category_ids/*.json")
+      .json(Constant.VIDEO_CATEGORY_INPUT)
 
     val categoryIdFlattenDF = JsonParser.flattenDF(jsonFileDF)
 
@@ -27,9 +27,9 @@ object TrendVideoCategoryPreProcessor {
     val countryCategoryCode =
       DataFrameUtilMethods
         .concatDataFrameColumns(
-          "country_category_code",
-          "country_code",
-          "items_id",
+          Constant.CATEGORY_COUNTRY_CODE,
+          Constant.COUNTRY_CODE,
+          Constant.ITEMS_ID,
           "_",
           countryCodeDF
         )
@@ -37,7 +37,7 @@ object TrendVideoCategoryPreProcessor {
     DataWriter
       .dataWriter(
         countryCategoryCode,
-        "data-set/trending_youtube_video_statistics_dataset/",
+        Constant.VIDEO_CATEGORY_OUTPUT,
         "video_category")
 
   }
