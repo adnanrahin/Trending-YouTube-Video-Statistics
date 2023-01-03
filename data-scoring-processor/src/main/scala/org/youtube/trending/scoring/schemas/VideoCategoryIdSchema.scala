@@ -6,7 +6,7 @@ case class VideoCategoryIdSchema(
                                   itemsEtag: String,
                                   itemsId: String,
                                   itemsKind: String,
-                                  itemSnippetsAssignable: String,
+                                  itemSnippetsAssignable: Boolean,
                                   itemSnippetsChannelId: String,
                                   itemSnippetsTable: String,
                                   countryCode: String,
