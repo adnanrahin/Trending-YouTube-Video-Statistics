@@ -18,7 +18,6 @@ object VideoScoringProcessor {
 
     val inputPath = "/Users/adnanrahin/source-code/scala/big-data/Trending-YouTube-Video-Statistics/data-set/trending_youtube_video_statistics_dataset/videos_info_filter/*"
 
-    val videoInfoDF = spark.read.parquet(inputPath)
     import spark.implicits._
     /*
         videoInfoDF.show(20)
@@ -30,11 +29,30 @@ object VideoScoringProcessor {
       spark.read.parquet(inputPath)
         .map(
           col => {
-            val videoID: String = col(0).toString
-            val trendingDate: String = col(1).toString
-            val title: String = col(2).toString
-            val categoryId: String = col(3).toString
-            val publishTime: String = col(4).toString
+            val videoID: String = if
+            (col(0).toString != null || col(0).toString.nonEmpty)
+              col(0).toString
+            else "empty"
+
+            val trendingDate: String = if
+            (col(1).toString != null || col(1).toString.nonEmpty)
+              col(1).toString
+            else "empty"
+
+            val title: String = if
+            (col(2).toString != null || col(2).toString.nonEmpty)
+              col(2).toString
+            else "empty"
+
+            val categoryId: String = if
+            (col(3).toString != null || col(3).toString.nonEmpty)
+              col(3).toString
+            else "empty"
+
+            val publishTime: String = if
+            (col(4).toString != null || col(4).toString.nonEmpty)
+              col(4).toString
+            else "empty"
 
             val views: Long = if (
               UtilMethods
@@ -60,7 +78,10 @@ object VideoScoringProcessor {
             ) col(8).toString.toLong
             else 0L
 
-            val thumbnailLink: String = col(9).toString
+            val thumbnailLink: String = if
+            (col(9).toString != null || col(9).toString.nonEmpty)
+              col(9).toString
+            else "empty"
 
             val commentsDisable: Boolean = if (
               col(10).toString
@@ -83,9 +104,20 @@ object VideoScoringProcessor {
             else
               true
 
-            val description: String = col(13).toString
-            val countryCode: String = col(13).toString
-            val countryCategoryCode: String = col(13).toString
+            val description: String = if
+            (col(13).toString != null || col(13).toString.nonEmpty)
+              col(13).toString
+            else "empty"
+
+            val countryCode: String = if
+            (col(14).toString != null || col(14).toString.nonEmpty)
+              col(14).toString
+            else "empty"
+
+            val countryCategoryCode: String = if
+            (col(15).toString != null || col(15).toString.nonEmpty)
+              col(15).toString
+            else "empty"
 
             VideoInfoSchema(
               videoID: String,
