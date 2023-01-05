@@ -19,112 +19,39 @@ object VideoScoringProcessor {
     val inputPath = "/Users/adnanrahin/source-code/scala/big-data/Trending-YouTube-Video-Statistics/data-set/trending_youtube_video_statistics_dataset/videos_info_filter/*"
 
     import spark.implicits._
-    /*
-        videoInfoDF.show(20)
-
-        videoInfoDF.map(attributes => "Name: " + attributes(0)).show(20)
-    */
 
     val videoInfoDataRDD: RDD[VideoInfoSchema] =
       spark.read.parquet(inputPath)
         .map(
           col => {
-            val videoID: String = if
-            (col(0).toString != null || col(0).toString.nonEmpty)
-              col(0).toString
-            else "empty"
 
-            val trendingDate: String = if
-            (col(1).toString != null || col(1).toString.nonEmpty)
-              col(1).toString
-            else "empty"
-
-            val title: String = if
-            (col(2).toString != null || col(2).toString.nonEmpty)
-              col(2).toString
-            else "empty"
-
-            val categoryId: String = if
-            (col(3).toString != null || col(3).toString.nonEmpty)
-              col(3).toString
-            else "empty"
-
-            val publishTime: String = if
-            (col(4).toString != null || col(4).toString.nonEmpty)
-              col(4).toString
-            else "empty"
-
-            val views: Long = if (
-              UtilMethods
-                .isNumeric(col(5).toString)
-            ) col(5).toString.toLong
-            else 0L
-
-            val likes: Long = if (
-              UtilMethods
-                .isNumeric(col(6).toString)
-            ) col(6).toString.toLong
-            else 0L
-
-            val dislikes: Long = if (
-              UtilMethods
-                .isNumeric(col(7).toString)
-            ) col(7).toString.toLong
-            else 0L
-
-            val commentCount: Long = if (
-              UtilMethods
-                .isNumeric(col(8).toString)
-            ) col(8).toString.toLong
-            else 0L
-
-            val thumbnailLink: String = if
-            (col(9).toString != null || col(9).toString.nonEmpty)
-              col(9).toString
-            else "empty"
-
-            val commentsDisable: Boolean = if (
-              col(10).toString
-                .equalsIgnoreCase("False")
-            ) false
-            else
-              true
-
-            val ratingsDisable: Boolean = if (
-              col(11).toString
-                .equalsIgnoreCase("False")
-            ) false
-            else
-              true
-
-            val videoErrorOrRemoved: Boolean = if (
-              col(12).toString
-                .equalsIgnoreCase("False")
-            ) false
-            else
-              true
-
-            val description: String = if
-            (col(13).toString != null || col(13).toString.nonEmpty)
-              col(13).toString
-            else "empty"
-
-            val countryCode: String = if
-            (col(14).toString != null || col(14).toString.nonEmpty)
-              col(14).toString
-            else "empty"
-
-            val countryCategoryCode: String = if
-            (col(15).toString != null || col(15).toString.nonEmpty)
-              col(15).toString
-            else "empty"
+            val videoID: String = if (col(0) == null) "empty" else col(0).toString
+            val trendingDate: String = if (col(1) == null) "empty" else col(1).toString
+            val title: String = if (col(2) == null) "empty" else col(2).toString
+            val channelTitle: String = if (col(3) == null) "empty" else col(3).toString
+            val categoryId: String = if (col(4) == null) "empty" else col(4).toString
+            val publishTime: String = if (col(5) == null) "empty" else col(5).toString
+            val tags: String = if (col(6) == null) "empty" else col(6).toString
+            val views: Long = if (col(7) != null && UtilMethods.isNumeric(col(7).toString)) col(7).toString.replaceAll("[^0-9]", "").toLong else 0L
+            val likes: Long = if (col(8) != null && UtilMethods.isNumeric(col(8).toString)) col(8).toString.replaceAll("[^0-9]", "").toLong else 0L
+            val dislikes: Long = if (col(9) != null && UtilMethods.isNumeric(col(9).toString)) col(9).toString.replaceAll("[^0-9]", "").toLong else 0L
+            val commentCount: Long = if (col(10) != null && UtilMethods.isNumeric(col(10).toString)) col(10).toString.replaceAll("[^0-9]", "").toLong else 0L
+            val thumbnailLink: String = if (col(11) == null) "empty" else col(11).toString
+            val commentsDisable: Boolean = if (col(12) != null && col(12).toString.trim.equalsIgnoreCase("False")) false else true
+            val ratingsDisable: Boolean = if (col(13) != null && col(13).toString.trim.equalsIgnoreCase("False")) false else true
+            val videoErrorOrRemoved: Boolean = if (col(14) != null && col(14).toString.trim.equalsIgnoreCase("False")) false else true
+            val description: String = if (col(15) == null) "empty" else col(15).toString
+            val countryCode: String = if (col(16) == null) "empty" else col(16).toString
+            val countryCategoryCode: String = if (col(17) == null) "empty" else col(17).toString
 
             VideoInfoSchema(
               videoID: String,
               trendingDate: String,
               title: String,
+              channelTitle: String,
               categoryId: String,
               publishTime: String,
+              tags: String,
               views: Long,
               likes: Long,
               dislikes: Long,
@@ -140,7 +67,7 @@ object VideoScoringProcessor {
           }
         ).rdd
 
-    videoInfoDataRDD.foreach(r => println(r.videoID))
+    videoInfoDataRDD.foreach(r => println(r.videoID + " " + r.thumbnailLink))
 
   }
 
