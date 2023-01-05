@@ -16,7 +16,7 @@ object VideoScoringProcessor {
         .master("local[*]")
         .getOrCreate()
 
-    val videoInfoInputPath = "/Users/adnanrahin/source-code/scala/big-data/Trending-YouTube-Video-Statistics/data-set/trending_youtube_video_statistics_dataset/videos_info_filter/*"
+    val videoInfoInputPath = args(0)
 
     val videoInfoSchemaDataLoader: VideoInfoSchemaDataLoader =
       new VideoInfoSchemaDataLoader(spark = spark, inputPath = videoInfoInputPath)
