@@ -2,7 +2,7 @@ package org.youtube.trending.scoring.dataloader
 
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.SparkSession
-import org.youtube.trending.scoring.schemas.VideoInfoSchema
+import org.youtube.trending.scoring.schemas.{VideoCategoryIdSchema, VideoInfoSchema}
 import org.youtube.trending.scoring.util.UtilMethods
 
 trait DataLoader {
@@ -14,26 +14,26 @@ trait DataLoader {
       spark.read.parquet(inputPath)
         .map(
 
-          attribute => {
+          videoInfoAttribute => {
 
-            val videoID: String = if (attribute(0) == null) "empty" else attribute(0).toString
-            val trendingDate: String = if (attribute(1) == null) "empty" else attribute(1).toString
-            val title: String = if (attribute(2) == null) "empty" else attribute(2).toString
-            val channelTitle: String = if (attribute(3) == null) "empty" else attribute(3).toString
-            val categoryId: String = if (attribute(4) == null) "empty" else attribute(4).toString
-            val publishTime: String = if (attribute(5) == null) "empty" else attribute(5).toString
-            val tags: String = if (attribute(6) == null) "empty" else attribute(6).toString
-            val views: Long = if (attribute(7) != null && UtilMethods.isNumeric(attribute(7).toString)) attribute(7).toString.replaceAll("[^0-9]", "").toLong else 0L
-            val likes: Long = if (attribute(8) != null && UtilMethods.isNumeric(attribute(8).toString)) attribute(8).toString.replaceAll("[^0-9]", "").toLong else 0L
-            val dislikes: Long = if (attribute(9) != null && UtilMethods.isNumeric(attribute(9).toString)) attribute(9).toString.replaceAll("[^0-9]", "").toLong else 0L
-            val commentCount: Long = if (attribute(10) != null && UtilMethods.isNumeric(attribute(10).toString)) attribute(10).toString.replaceAll("[^0-9]", "").toLong else 0L
-            val thumbnailLink: String = if (attribute(11) == null) "empty" else attribute(11).toString
-            val commentsDisable: Boolean = if (attribute(12) != null && attribute(12).toString.trim.equalsIgnoreCase("False")) false else true
-            val ratingsDisable: Boolean = if (attribute(13) != null && attribute(13).toString.trim.equalsIgnoreCase("False")) false else true
-            val videoErrorOrRemoved: Boolean = if (attribute(14) != null && attribute(14).toString.trim.equalsIgnoreCase("False")) false else true
-            val description: String = if (attribute(15) == null) "empty" else attribute(15).toString
-            val countryCode: String = if (attribute(16) == null) "empty" else attribute(16).toString
-            val countryCategoryCode: String = if (attribute(17) == null) "empty" else attribute(17).toString
+            val videoID: String = if (videoInfoAttribute(0) == null) "empty" else videoInfoAttribute(0).toString
+            val trendingDate: String = if (videoInfoAttribute(1) == null) "empty" else videoInfoAttribute(1).toString
+            val title: String = if (videoInfoAttribute(2) == null) "empty" else videoInfoAttribute(2).toString
+            val channelTitle: String = if (videoInfoAttribute(3) == null) "empty" else videoInfoAttribute(3).toString
+            val categoryId: String = if (videoInfoAttribute(4) == null) "empty" else videoInfoAttribute(4).toString
+            val publishTime: String = if (videoInfoAttribute(5) == null) "empty" else videoInfoAttribute(5).toString
+            val tags: String = if (videoInfoAttribute(6) == null) "empty" else videoInfoAttribute(6).toString
+            val views: Long = if (videoInfoAttribute(7) != null && UtilMethods.isNumeric(videoInfoAttribute(7).toString)) videoInfoAttribute(7).toString.replaceAll("[^0-9]", "").toLong else 0L
+            val likes: Long = if (videoInfoAttribute(8) != null && UtilMethods.isNumeric(videoInfoAttribute(8).toString)) videoInfoAttribute(8).toString.replaceAll("[^0-9]", "").toLong else 0L
+            val dislikes: Long = if (videoInfoAttribute(9) != null && UtilMethods.isNumeric(videoInfoAttribute(9).toString)) videoInfoAttribute(9).toString.replaceAll("[^0-9]", "").toLong else 0L
+            val commentCount: Long = if (videoInfoAttribute(10) != null && UtilMethods.isNumeric(videoInfoAttribute(10).toString)) videoInfoAttribute(10).toString.replaceAll("[^0-9]", "").toLong else 0L
+            val thumbnailLink: String = if (videoInfoAttribute(11) == null) "empty" else videoInfoAttribute(11).toString
+            val commentsDisable: Boolean = if (videoInfoAttribute(12) != null && videoInfoAttribute(12).toString.trim.equalsIgnoreCase("False")) false else true
+            val ratingsDisable: Boolean = if (videoInfoAttribute(13) != null && videoInfoAttribute(13).toString.trim.equalsIgnoreCase("False")) false else true
+            val videoErrorOrRemoved: Boolean = if (videoInfoAttribute(14) != null && videoInfoAttribute(14).toString.trim.equalsIgnoreCase("False")) false else true
+            val description: String = if (videoInfoAttribute(15) == null) "empty" else videoInfoAttribute(15).toString
+            val countryCode: String = if (videoInfoAttribute(16) == null) "empty" else videoInfoAttribute(16).toString
+            val countryCategoryCode: String = if (videoInfoAttribute(17) == null) "empty" else videoInfoAttribute(17).toString
 
             VideoInfoSchema(
               videoID: String,
@@ -60,6 +60,45 @@ trait DataLoader {
 
     videoInfoDataRDD
 
+  }
+
+  def videoCategoryIdSchemaLoader(spark: SparkSession, inputPath: String): RDD[VideoCategoryIdSchema] = {
+
+    import spark.implicits._
+    val videoCategoryIdRDD: RDD[VideoCategoryIdSchema] =
+      spark.read.parquet(inputPath)
+        .map(
+
+          videoCategoryIdAttribute => {
+
+            val etag: String = if (videoCategoryIdAttribute(0) == null) "empty" else videoCategoryIdAttribute(0).toString
+            val kind: String = if (videoCategoryIdAttribute(1) == null) "empty" else videoCategoryIdAttribute(1).toString
+            val itemsEtag: String = if (videoCategoryIdAttribute(2) == null) "empty" else videoCategoryIdAttribute(2).toString
+            val itemsId: String = if (videoCategoryIdAttribute(3) == null) "empty" else videoCategoryIdAttribute(3).toString
+            val itemsKind: String = if (videoCategoryIdAttribute(4) == null) "empty" else videoCategoryIdAttribute(4).toString
+            val itemSnippetsAssignable: Boolean = if (videoCategoryIdAttribute(5) != null && videoCategoryIdAttribute(5).toString.trim.equalsIgnoreCase("False")) false else true
+            val itemSnippetsChannelId: String = if (videoCategoryIdAttribute(6) == null) "empty" else videoCategoryIdAttribute(6).toString
+            val itemSnippetsTable: String = if (videoCategoryIdAttribute(7) == null) "empty" else videoCategoryIdAttribute(7).toString
+            val countryCode: String = if (videoCategoryIdAttribute(8) == null) "empty" else videoCategoryIdAttribute(8).toString
+            val countryCategoryCode: String = if (videoCategoryIdAttribute(9) == null) "empty" else videoCategoryIdAttribute(9).toString
+
+
+            VideoCategoryIdSchema(
+              etag: String,
+              kind: String,
+              itemsEtag: String,
+              itemsId: String,
+              itemsKind: String,
+              itemSnippetsAssignable: Boolean,
+              itemSnippetsChannelId: String,
+              itemSnippetsTable: String,
+              countryCode: String,
+              countryCategoryCode: String
+            )
+          }
+        ).rdd
+
+    videoCategoryIdRDD
   }
 
 }
