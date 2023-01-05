@@ -31,9 +31,6 @@ object VideoScoringProcessor {
     val videoCategoryIdDataRDD: RDD[VideoCategoryIdSchema] =
       videoCategorySchemaDataLoader.loadVideoCategoryData()
 
-    videoCategoryIdDataRDD.foreach(f => println(f.itemSnippetsTittle + " " + f.itemsId))
-
-
   }
 
 }
