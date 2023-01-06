@@ -1,13 +1,14 @@
-package org.youtube.trending.scoring.dataloader
+package org.youtube.trending.scoring.transformer
 
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.SparkSession
+import org.apache.spark.storage.StorageLevel
 import org.youtube.trending.scoring.schemas.{VideoCategoryIdSchema, VideoInfoSchema}
 import org.youtube.trending.scoring.util.UtilMethods
 
-trait DataLoader {
+trait DataTransformer {
 
-  def videoInfoSchemaLoader(spark: SparkSession, inputPath: String): RDD[VideoInfoSchema] = {
+  def videoInfoTransformer(spark: SparkSession, inputPath: String): RDD[VideoInfoSchema] = {
 
     import spark.implicits._
     val videoInfoDataRDD: RDD[VideoInfoSchema] =
@@ -58,11 +59,11 @@ trait DataLoader {
           }
         ).rdd
 
-    videoInfoDataRDD
+    videoInfoDataRDD.persist(StorageLevel.MEMORY_AND_DISK)
 
   }
 
-  def videoCategoryIdSchemaLoader(spark: SparkSession, inputPath: String): RDD[VideoCategoryIdSchema] = {
+  def vidoeCategoryIdTransformer(spark: SparkSession, inputPath: String): RDD[VideoCategoryIdSchema] = {
 
     import spark.implicits._
     val videoCategoryIdRDD: RDD[VideoCategoryIdSchema] =
@@ -98,7 +99,7 @@ trait DataLoader {
           }
         ).rdd
 
-    videoCategoryIdRDD
+    videoCategoryIdRDD.persist(StorageLevel.MEMORY_AND_DISK)
   }
 
 }
