@@ -1,6 +1,7 @@
 package org.youtube.trending.scoring
 
 import org.apache.spark.rdd.RDD
+import org.apache.spark.storage.StorageLevel
 import org.youtube.trending.schemas.VideoInfoSchema
 
 object ScoringProcessor {
@@ -18,7 +19,7 @@ object ScoringProcessor {
         }
         .sortBy(_._2)
 
-    channelViewsRDD
+    channelViewsRDD.persist(StorageLevel.MEMORY_AND_DISK)
   }
 
 }
