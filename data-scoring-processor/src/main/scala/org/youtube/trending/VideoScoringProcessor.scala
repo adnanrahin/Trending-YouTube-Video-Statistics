@@ -3,6 +3,7 @@ package org.youtube.trending
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.SparkSession
 import org.youtube.trending.schemas.{VideoCategoryIdSchema, VideoInfoSchema}
+import org.youtube.trending.scoring.ScoringProcessor
 import org.youtube.trending.transformer.{VideoCategorySchemaDataTransformer, VideoInfoSchemaDataTransformer}
 
 object VideoScoringProcessor {
@@ -30,6 +31,9 @@ object VideoScoringProcessor {
 
     val videoCategoryIdDataRDD: RDD[VideoCategoryIdSchema] =
       videoCategorySchemaDataLoader.loadVideoCategoryData()
+
+    ScoringProcessor.findAllTotalViewsByChannelTitle(videoInfoDataRDD)
+      .foreach(f => println(f._1 + " " + f._2))
 
   }
 
