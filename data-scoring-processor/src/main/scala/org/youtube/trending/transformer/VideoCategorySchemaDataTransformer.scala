@@ -1,8 +1,8 @@
-package org.youtube.trending.scoring.transformer
+package org.youtube.trending.transformer
 
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.SparkSession
-import org.youtube.trending.scoring.schemas.VideoCategoryIdSchema
+import org.youtube.trending.schemas.VideoCategoryIdSchema
 
 class VideoCategorySchemaDataTransformer(spark: SparkSession, inputPath: String) extends DataTransformer {
 

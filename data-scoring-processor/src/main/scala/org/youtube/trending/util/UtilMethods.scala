@@ -1,4 +1,4 @@
-package org.youtube.trending.scoring.util
+package org.youtube.trending.util
 
 import scala.util.Try
 

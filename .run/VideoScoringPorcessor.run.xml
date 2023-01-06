@@ -12,7 +12,7 @@
       </FilePath>
     </option>
     <option name="beforeShellScript" value="" />
-    <option name="className" value="org.youtube.trending.scoring.VideoScoringProcessor" />
+    <option name="className" value="org.youtube.trending.VideoScoringProcessor" />
     <option name="clusterManager" value="STANDALONE" />
     <option name="conf" value="" />
     <option name="deployMode" value="CLUSTER" />

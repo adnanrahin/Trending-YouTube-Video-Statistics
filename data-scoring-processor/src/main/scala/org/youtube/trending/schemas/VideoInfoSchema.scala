@@ -1,4 +1,4 @@
-package org.youtube.trending.scoring.schemas
+package org.youtube.trending.schemas
 
 case class VideoInfoSchema(
                             videoID: String,
