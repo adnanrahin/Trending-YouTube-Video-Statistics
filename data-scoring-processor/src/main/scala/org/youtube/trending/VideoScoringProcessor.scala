@@ -20,6 +20,7 @@ object VideoScoringProcessor {
 
     val videoInfoInputPath = args(0)
     val videoCategoryPath = args(1)
+    val outputDirectory = args(2)
 
     val videoInfoSchemaDataLoader: VideoInfoSchemaDataTransformer =
       new VideoInfoSchemaDataTransformer(spark = spark, inputPath = videoInfoInputPath)
@@ -34,7 +35,7 @@ object VideoScoringProcessor {
       videoCategorySchemaDataLoader.loadVideoCategoryData()
 
     DataWriter.dataWriter(ScoringProcessor.findAllTotalViewsByChannelTitleToDf(videoInfoDataRDD, spark)
-      , "/Users/adnanrahin/source-code/scala/big-data/Trending-YouTube-Video-Statistics/data-set/trending_youtube_video_statistics_dataset",
+      , outputDirectory,
       "channel_total_views_count")
 
   }

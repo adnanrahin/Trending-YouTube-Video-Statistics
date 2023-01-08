@@ -4,7 +4,7 @@
     <option name="archives">
       <list />
     </option>
-    <option name="artifactArgs" value="&quot;$PROJECT_DIR$/data-set/trending_youtube_video_statistics_dataset/videos_info_filter/*&quot; &quot;$PROJECT_DIR$/data-set/trending_youtube_video_statistics_dataset/video_category/*&quot;" />
+    <option name="artifactArgs" value="&quot;$PROJECT_DIR$/data-set/trending_youtube_video_statistics_dataset/videos_info_filter/*&quot; &quot;$PROJECT_DIR$/data-set/trending_youtube_video_statistics_dataset/video_category/*&quot; &quot;$PROJECT_DIR$/data-set/trending_youtube_video_statistics_dataset&quot;" />
     <option name="artifactPath">
       <FilePath>
         <option name="path" value="$PROJECT_DIR$/data-scoring-processor/target/data-scoring-processor-1.0-SNAPSHOT.jar" />
