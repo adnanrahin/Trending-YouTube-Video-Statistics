@@ -42,7 +42,7 @@
         <option name="type" value="FILE" />
       </FilePath>
     </option>
-    <option name="master" value="spark://Adnans-MBP:7077" />
+    <option name="master" value="spark://spark-master:7077" />
     <option name="numExecutors" value="" />
     <option name="packages" value="" />
     <option name="principal" value="" />
