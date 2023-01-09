@@ -19,3 +19,7 @@
 
 ## Spark Standalone Cluster Configuration:
 To the see the spark-standalone cluster configuration check `.run` directory.
+
+
+### Docker Container Commands and Instructions:
+```/opt/spark/bin/spark-submit --master spark://spark-master:7077 --deploy-mode cluster --class org.youtube.trending.VideoScoringProcessor --name VideoScoringPorcessor --driver-memory 1G --executor-memory 1G --executor-cores 2 --total-executor-cores 1 /opt/spark-apps-scoring/data-scoring-processor-1.0-SNAPSHOT.jar /opt/spark-data/trending_youtube_video_statistics_dataset/videos_info_filter/* /opt/spark-data/trending_youtube_video_statistics_dataset/video_category/* /opt/spark-data/trending_youtube_video_statistics_dataset```
