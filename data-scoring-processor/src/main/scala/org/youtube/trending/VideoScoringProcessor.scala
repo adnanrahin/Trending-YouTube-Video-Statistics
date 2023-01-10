@@ -15,7 +15,7 @@ object VideoScoringProcessor {
       SparkSession
         .builder()
         .appName("VideoScoringProcessor")
-        .master("local[*]")
+        //.master("spark://spark-master:7077")
         .getOrCreate()
 
     val videoInfoInputPath = args(0)
