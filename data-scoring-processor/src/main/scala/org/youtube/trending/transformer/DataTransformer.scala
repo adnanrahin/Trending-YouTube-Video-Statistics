@@ -63,7 +63,7 @@ trait DataTransformer {
 
   }
 
-  def vidoeCategoryIdTransformer(spark: SparkSession, inputPath: String): RDD[VideoCategoryIdSchema] = {
+  def videoCategoryIdTransformer(spark: SparkSession, inputPath: String): RDD[VideoCategoryIdSchema] = {
 
     import spark.implicits._
     val videoCategoryIdRDD: RDD[VideoCategoryIdSchema] =

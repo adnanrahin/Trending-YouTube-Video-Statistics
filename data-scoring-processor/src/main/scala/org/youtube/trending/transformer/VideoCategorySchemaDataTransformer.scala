@@ -8,7 +8,7 @@ class VideoCategorySchemaDataTransformer(spark: SparkSession, inputPath: String)
 
   def loadVideoCategoryData(): RDD[VideoCategoryIdSchema] = {
 
-    vidoeCategoryIdTransformer(spark = spark, inputPath = inputPath)
+    videoCategoryIdTransformer(spark = spark, inputPath = inputPath)
 
   }
 
