@@ -25,7 +25,9 @@ object ScoringProcessor {
 
   def findAllTotalViewsByChannelTitleToDf(channelViewsRDD: RDD[VideoInfoSchema], spark: SparkSession): DataFrame = {
     val channelViews: RDD[Row] = findAllTotalViewsByChannelTitle(channelViewsRDD)
-    spark.createDataFrame(channelViews, SchemaDefinition.viewCountSchema)
+    spark
+      .createDataFrame(channelViews, SchemaDefinition.viewCountSchema)
+      .persist(StorageLevel.MEMORY_AND_DISK)
   }
 
 
