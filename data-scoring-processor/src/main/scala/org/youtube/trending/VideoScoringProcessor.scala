@@ -38,6 +38,10 @@ object VideoScoringProcessor {
       , outputDirectory,
       "channel_total_views_count")
 
+    DataWriter.dataWriter(ScoringProcessor.findAllMostViewsByDatesToDF(videoInfoDataRDD, spark)
+      , outputDirectory,
+      "most_viewed_counts_dates")
+
   }
 
 }

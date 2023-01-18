@@ -31,4 +31,26 @@ object ScoringProcessor {
   }
 
 
+  private def findAllMostViewsByDates(videoInfoDataRDD: RDD[VideoInfoSchema]): RDD[Row] = {
+
+    val viewsByDates: RDD[Row] =
+      videoInfoDataRDD
+        .groupBy(_.trendingDate)
+        .map {
+          row =>
+            val mostView: Long = row._2
+              .map(k => k.views).max
+            Row(row._1, mostView)
+        }
+    viewsByDates.persist(StorageLevel.MEMORY_AND_DISK)
+  }
+
+  def findAllMostViewsByDatesToDF(viewsByDates: RDD[VideoInfoSchema], spark: SparkSession): DataFrame = {
+    val viewsByDatesRDD: RDD[Row] = findAllMostViewsByDates(viewsByDates)
+    spark
+      .createDataFrame(viewsByDatesRDD, SchemaDefinition.mostViewByDateSchema)
+
+  }
+
+
 }

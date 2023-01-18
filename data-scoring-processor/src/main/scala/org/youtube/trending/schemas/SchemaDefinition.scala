@@ -11,4 +11,12 @@ object SchemaDefinition {
     )
   )
 
+  final val mostViewByDateSchema = StructType(
+    Array(
+      StructField("Dates", StringType, true),
+      StructField("Total_Views", LongType, true),
+    )
+  )
+
+
 }
