@@ -19,6 +19,7 @@ object TrendVideoDataPreProcessor {
 
     val csvFileDF = spark.read.format("csv")
       .option("header", "true")
+      .option("inferSchema", "true")
       .option("delimiter", ",")
       .load(inputSource)
 
@@ -36,9 +37,14 @@ object TrendVideoDataPreProcessor {
           countryCodeDF
         )
 
+    val replacedAndFilteredDf = countryCategoryCode
+      .withColumn("video_id", when(col("video_id").startsWith("\\n"),
+      regexp_replace(col("video_id"), ".*", " "))
+      .otherwise(col("video_id")))
+
     DataWriter
       .dataWriter(
-        countryCategoryCode,
+        replacedAndFilteredDf,
         Constant.VIDEO_INFO_OUTPUT,
         "videos_info_filter")
 
