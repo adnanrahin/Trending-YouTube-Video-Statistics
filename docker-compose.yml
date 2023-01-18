@@ -1,6 +1,9 @@
 version: "3.7"
 services:
   spark-master:
+    build:
+      context: .                          #docker file path (. means root directory)
+      dockerfile: Dockerfile
     image: cluster-apache-spark:3.1.2
     ports:
       - "9090:8080"
@@ -12,6 +15,7 @@ services:
     environment:
       - SPARK_LOCAL_IP=spark-master
       - SPARK_WORKLOAD=master
+
   spark-worker-a:
     image: cluster-apache-spark:3.1.2
     ports:
@@ -31,6 +35,8 @@ services:
       - ./data-preprocessing-engine/target/:/opt/spark-apps-preprocessing
       - ./data-scoring-processor/target/:/opt/spark-apps-scoring
       - ./data-set:/opt/spark-data
+    restart: always
+
   spark-worker-b:
     image: cluster-apache-spark:3.1.2
     ports:
@@ -50,10 +56,4 @@ services:
       - ./data-preprocessing-engine/target/:/opt/spark-apps-preprocessing
       - ./data-scoring-processor/target/:/opt/spark-apps-scoring
       - ./data-set:/opt/spark-data
-  demo-database:
-    image: postgres:11.7-alpine
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_PASSWORD=casa1234
-
+    restart: always
