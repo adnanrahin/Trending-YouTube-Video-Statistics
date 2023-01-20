@@ -30,7 +30,10 @@ SPARK_WORKER_LOG=/opt/spark/logs/spark-worker.out \
 SPARK_WORKER_WEBUI_PORT=8080 \
 SPARK_WORKER_PORT=7078 \
 SPARK_MASTER="spark://spark-master:7077" \
-SPARK_WORKLOAD="master"
+SPARK_WORKLOAD="master" \
+VIDOES_INFO_FILTER=/opt/spark-data/trending_youtube_video_statistics_dataset/videos_info_filter/* \
+VIDEO_CATEGORY=/opt/spark-data/trending_youtube_video_statistics_dataset/video_category/* \
+OUTPUT_DIR=/opt/spark-data/trending_youtube_video_statistics_dataset
 
 EXPOSE 8080 7077 7078
 
