@@ -6,15 +6,15 @@ object SchemaDefinition {
 
   final val viewCountSchema = StructType(
     Array(
-      StructField("Channel_Title", StringType, true),
-      StructField("Total_Views", LongType, true),
+      StructField("Channel_Title", StringType, nullable = true),
+      StructField("Total_Views", LongType, nullable = true),
     )
   )
 
   final val mostViewByDateSchema = StructType(
     Array(
-      StructField("Dates", StringType, true),
-      StructField("Total_Views", LongType, true),
+      StructField("Dates", StringType, nullable = true),
+      StructField("Total_Views", LongType, nullable = true),
     )
   )
 
