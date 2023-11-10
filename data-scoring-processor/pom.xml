@@ -34,7 +34,7 @@
                         </goals>
                         <configuration>
                             <jvmArgs>
-                                <jvmArg>-Xss2G</jvmArg>
+                                <jvmArg>-Xss1G</jvmArg>
                             </jvmArgs>
                             <args>
                                 <arg>-deprecation</arg>
@@ -51,7 +51,7 @@
                         </goals>
                         <configuration>
                             <jvmArgs>
-                                <jvmArg>-Xss2G</jvmArg>
+                                <jvmArg>-Xss1G</jvmArg>
                             </jvmArgs>
                             <args>
                                 <arg>-deprecation</arg>
